@@ -85,7 +85,7 @@ class RoleController extends Controller
         }
 
       } catch (\Exception $e) {
-        \Log::error(array('user_id' => Auth::user()->id, 'msg' => "Failed to store role.", "error" => $e->getMessage()));
+        \Log::error(array('user_id' => Auth::guard('admin')->user()->id, 'msg' => "Failed to store role.", "error" => $e->getMessage()));
       }
     }
 
@@ -105,19 +105,21 @@ class RoleController extends Controller
             ]
         );
       } catch (\Exception $e) {
-        \Log::error(array('user_id' => Auth::user()->id, 'msg' => "Failed to show role.", "error" => $e->getMessage()));
+        \Log::error(array('user_id' => Auth::guard('admin')->user()->id, 'msg' => "Failed to show role.", "error" => $e->getMessage()));
       }
     }
 
     public function edit($id)
     {
       try {
+
         $role = $this->role->edit($id);
         $permissions = $this->permission->getAllPermissions();
         $userPermission = $role->permissions->pluck('id','id')->toArray();
         $id = Crypt::encrypt($id);
         $show = true;
-        return view('role.create',
+
+        return view('admin.role.create',
             [
                'permissions' => $permissions,
                'role' => $role,
@@ -127,7 +129,7 @@ class RoleController extends Controller
             ]
         );
       } catch (\Exception $e) {
-        \Log::error(array('user_id' => Auth::user()->id, 'msg' => "Failed to edit role.", "error" => $e->getMessage()));
+        \Log::error(array('user_id' => Auth::guard('admin')->user()->id, 'msg' => "Failed to edit role.", "error" => $e->getMessage()));
       }
     }
 
@@ -159,7 +161,7 @@ class RoleController extends Controller
             }
           }
       } catch (\Exception $e) {
-        \Log::error(array('user_id' => Auth::user()->id, 'msg' => "Failed to update role.", "error" => $e->getMessage()));
+        \Log::error(array('user_id' => Auth::guard('admin')->user()->id, 'msg' => "Failed to update role.", "error" => $e->getMessage()));
       }
     }
 
@@ -169,7 +171,7 @@ class RoleController extends Controller
       try {
         return view('response_time.list');
       } catch (\Exception $e) {
-        \Log::error(array('user_id' => Auth::user()->id, 'msg' => "Failed to get response time list.", "error" => $e->getMessage()));
+        \Log::error(array('user_id' => Auth::guard('admin')->user()->id, 'msg' => "Failed to get response time list.", "error" => $e->getMessage()));
       }
     }
 
@@ -179,7 +181,7 @@ class RoleController extends Controller
       try {
         return $this->roleResponseTime->getResponseTimeList();
       } catch (\Exception $e) {
-        \Log::error(array('user_id' => Auth::user()->id, 'msg' => "Failed to get response time list.", "error" => $e->getMessage()));
+        \Log::error(array('user_id' => Auth::guard('admin')->user()->id, 'msg' => "Failed to get response time list.", "error" => $e->getMessage()));
       }
     }
 
@@ -191,7 +193,7 @@ class RoleController extends Controller
 
         return view('response_time.form', ['roles' => $roles]);
       } catch (\Exception $e) {
-        \Log::error(array('user_id' => Auth::user()->id, 'msg' => "Failed to create response time.", "error" => $e->getMessage()));
+        \Log::error(array('user_id' => Auth::guard('admin')->user()->id, 'msg' => "Failed to create response time.", "error" => $e->getMessage()));
       }
     }
 
@@ -215,7 +217,7 @@ class RoleController extends Controller
           return response()->json(['status' => $result['success'], 'message' => $result['message']]);
         }
       } catch (\Exception $e) {
-        \Log::error(array('user_id' => Auth::user()->id, 'msg' => "Failed to store response time.", "error" => $e->getMessage()));
+        \Log::error(array('user_id' => Auth::guard('admin')->user()->id, 'msg' => "Failed to store response time.", "error" => $e->getMessage()));
       }
     }
 
@@ -229,7 +231,7 @@ class RoleController extends Controller
 
         return view('response_time.form', ['roles' => $roles, 'roleResponseTime' => $roleResponseTime]);
       } catch (\Exception $e) {
-        \Log::error(array('user_id' => Auth::user()->id, 'msg' => "Failed to redirect to edit response time.", "error" => $e->getMessage()));
+        \Log::error(array('user_id' => Auth::guard('admin')->user()->id, 'msg' => "Failed to redirect to edit response time.", "error" => $e->getMessage()));
       }
     }
 }

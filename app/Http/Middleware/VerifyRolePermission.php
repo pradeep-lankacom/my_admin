@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use \Illuminate\Contracts\Auth\Guard;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 class VerifyRolePermission
@@ -19,7 +20,7 @@ class VerifyRolePermission
      */
     public function __construct(Guard $auth)
     {
-        $this->auth = $auth;
+        $this->auth = Auth::guard('admin');
     }
 
     /**
@@ -38,7 +39,7 @@ class VerifyRolePermission
             return $next($request);
         } else {
             $this->auth->logout();
-            return redirect('/login');
+            return redirect('/admin/login');
         }
 
     }

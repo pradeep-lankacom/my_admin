@@ -43,10 +43,10 @@ class RoleRepository implements RoleInterface
 
             $action = null;
 
-            $action .='<a title="View" style="display: block;float: left;margin-right: 3px;" href="/roles/'.$roles->id.'"><button type="button"  class="btn btn-success btn-xs dt-view"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></button></a>';
+            $action .='<a title="View" style="display: block;float: left;margin-right: 3px;" href="/admin/roles/'.$roles->id.'"><button type="button"  class="btn btn-success btn-xs dt-view"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></button></a>';
 
             if (\Auth::guard('admin')->user()->hasAnyRoleWithPermission($roleName, 'roles.edit')) {
-                $action .='<a title="Edit" style="display: block;float: left;margin-right: 3px;" href="/roles/'.$roles->id.'/edit"><button type="button"  class="btn btn-primary btn-xs dt-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a>';
+                $action .='<a title="Edit" style="display: block;float: left;margin-right: 3px;" href="/admin/roles/edit/'.$roles->id.'"><button type="button"  class="btn btn-primary btn-xs dt-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a>';
             }
 
             return $action;

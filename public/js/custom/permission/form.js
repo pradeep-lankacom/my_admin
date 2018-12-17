@@ -49,7 +49,7 @@ $(document).ready(function() {
             } else {  
               toastr.success(response.message, "Success");
               setTimeout(function() {
-                window.location.href = "admin/permissions/list";
+                window.location.href = "/admin/permission";
               }, 2500);
   
             }

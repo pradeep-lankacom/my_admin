@@ -47,5 +47,10 @@ class MainServiceProvider extends ServiceProvider
             'App\Repositories\DashboardRepository'
         );
 
+        $this->app->bind(
+            'App\Repositories\Contracts\AdminInterface',
+            'App\Repositories\AdminRepository'
+        );
+
     }
 }

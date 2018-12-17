@@ -9,7 +9,7 @@
 
     Route::get('/admin', [
         'as' => 'admin',
-        'uses' => 'admin\AdminController@index',
+        'uses' => 'admin\AdminController@dashborad',
     ]);
 
 
@@ -17,5 +17,6 @@ Route::prefix('admin')->group(function() {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login_submit', 'Auth\AdminLoginController@login')->name('admin.login.submit');
     Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
-    Route::get('/home', 'admin\AdminController@index')->name('admin.home');
+    Route::get('/home', 'admin\AdminController@dashborad')->name('admin.home');
+    Route::get('/dashboard', 'admin\AdminController@dashborad')->name('admin.home');
 });
