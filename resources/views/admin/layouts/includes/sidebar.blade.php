@@ -33,7 +33,7 @@
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->
 
-
+          @can('RoleMenu')
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Role</span>
             <span class="pull-right-container">
@@ -45,8 +45,8 @@
             <li><a href="/admin/roles">Manage</a></li>
           </ul>
         </li>
-
-
+          @endcan
+          @can('PermissionMenu')
           <li class="treeview">
               <a href="#"><i class="fa fa-link"></i> <span>Permission</span>
                   <span class="pull-right-container">
@@ -58,7 +58,8 @@
                   <li><a href="/admin/permission">Manage</a></li>
               </ul>
           </li>
-
+          @endcan
+          @can('UserMenu')
           <li class="treeview">
               <a href="#"><i class="fa fa-link"></i> <span>User</span>
                   <span class="pull-right-container">
@@ -70,6 +71,7 @@
                   <li><a href="/admin/users">Manage</a></li>
               </ul>
           </li>
+          @endcan
       </ul>
       <!-- /.sidebar-menu -->
     </section>

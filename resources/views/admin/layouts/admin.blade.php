@@ -59,7 +59,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <!-- Main content -->
         <section class="content container-fluid">
-
+            @if (Session::has('PermissionDenied'))
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <strong>{{ Session::get('PermissionDenied') }}!</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             <!--------------------------
               | Your Page Content Here |
               -------------------------->

@@ -22,6 +22,7 @@ class RoleController extends Controller
       ) {
         $this->role = $role;
         $this->permission = $permission;
+        $this->middleware('auth:admin');
       }
 
     public function index()
@@ -139,7 +140,8 @@ class RoleController extends Controller
         $validated = $request->validated();
         $id = Crypt::decrypt($request->input('id'));
 
-        if ($request->is('roles/update')) {
+
+        if ($request->is('admin/roles/update')) {
 
             $data = [
               //  'name' => $request->name,
@@ -147,15 +149,12 @@ class RoleController extends Controller
                 'permission_id' => $request->permission_id
             ];
 
-            if($id != 1){
-                $result = $this->role->update($data,$id);
 
-            }else{
-                return response()->json(['status' => false, 'message' => "Sorry You Can't Update Super administrator Role"]);
-            }
+                //return response()->json(['status' => false, 'message' => "Sorry You Can't Update Super administrator Role"]);
 
+            $result = $this->role->update($data,$id);
             if ($result['success']) {
-              return response()->json(['status' => true, 'message' => 'Role has been successfully Created.']);
+              return response()->json(['status' => true, 'message' => 'Role has been successfully Update.']);
             } else {
               return response()->json(['status' => false, 'message' => 'Oops.. An Error Occurred, Please Try Again.']);
             }

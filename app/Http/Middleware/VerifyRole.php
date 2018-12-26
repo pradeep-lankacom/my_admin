@@ -19,7 +19,7 @@ class VerifyRole
      */
     public function __construct(Guard $auth)
     {
-        $this->auth = $auth;
+        $this->auth = Auth::guard('admin');
     }
 
     /**

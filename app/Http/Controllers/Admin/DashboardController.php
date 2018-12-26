@@ -19,7 +19,7 @@ class DashboardController extends Controller
     ) {
         $this->dashboard = $dashboard;
         $this->clearance = $clearance;
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
     }
 
     public function index()

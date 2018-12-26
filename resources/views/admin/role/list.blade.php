@@ -11,8 +11,13 @@
                 </div>
             </div>
             <div class="box-body">
+                <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                    <div class="row" style="margin-bottom: 10px">
+                        <a class="btn btn-sm btn-primary" href="/admin/roles/create">Create New Role</a>
+                    </div>
 
-                    <a class="btn btn-sm btn-primary" href="/admin/roles/create">Create New Role</a>
+                </div>
+
 
                 <div class="row">
                     <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">

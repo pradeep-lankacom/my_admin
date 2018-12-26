@@ -38,8 +38,9 @@ class VerifyRolePermission
         if ($this->auth->check() && $this->auth->user()->hasAnyRoleWithPermission($this->auth->user()->roles,Route::getFacadeRoot()->current()->getName())) {
             return $next($request);
         } else {
-            $this->auth->logout();
-            return redirect('/admin/login');
+           // $this->auth->logout();
+            \Session::flash('PermissionDenied', 'Permission denied');
+            return redirect('/admin/home');
         }
 
     }

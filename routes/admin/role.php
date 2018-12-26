@@ -19,6 +19,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role.permission:SuperAdmin'
     Route::get('/roles', 'admin\RoleController@index')->name('role.list');
     Route::get('/roles/create', 'admin\RoleController@create')->name('role.create');
     Route::post('/roles/store', 'admin\RoleController@store')->name('role.store');
+    Route::post('/roles/update', 'admin\RoleController@update')->name('role.update');
     Route::get('/roles/get_role_list', 'admin\RoleController@getRoleList')->name('role.get_role_list');
 
     Route::get('/roles/edit/{id}', [

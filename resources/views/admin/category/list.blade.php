@@ -6,14 +6,14 @@
         <!-- Box -->
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Users</h3>
+                <h3 class="box-title">Category</h3>
                 <div class="box-tools pull-right">
                 </div>
             </div>
             <div class="box-body">
                 <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                     <div class="row" style="margin-bottom: 10px">
-                        <a class="btn btn-sm btn-primary" href="/admin/user/create">Create New User</a>
+                        <a class="btn btn-sm btn-primary" href="/admin/category/create">Create New User</a>
                     </div>
 
                 </div>

@@ -15,7 +15,7 @@
                 <form method="post" class="form-horizontal" action="{{ (!empty($id)) ? "/admin/roles/update" : "/admin/roles/store" }}" id="store-role-form" autocomplete="off">
 
                     {{csrf_field()}}
-                    {{ (!empty($id))? method_field('PUT') : method_field('POST') }}
+                    {{ (!empty($id))? method_field('POST') : method_field('POST') }}
 
                     <input type="hidden" id="id" name="id" value="{{ (!empty($id)) ? $id : '' }}">
 
