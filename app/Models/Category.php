@@ -21,5 +21,21 @@ class Category extends Authenticatable
     ];
 
 
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\Category', 'id', 'parent_id'); // I believe you can use also hasOne().
+    }
+
+    public function children()
+    {
+        return $this->hasMany('App\Models\Category', 'parent_id', 'id');
+    }
+    public static function tree() {
+
+        return static::where('parent_id', '=', 0)->get();
+
+    }
+
+
 
 }

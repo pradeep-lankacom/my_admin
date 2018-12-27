@@ -8,4 +8,6 @@ interface CategoryInterface
 
     public function getCategoryList();
 
+    public function getMainCategory();
+
 }

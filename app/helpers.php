@@ -11,6 +11,9 @@
     case 'profile_image':
       $destinationPath = $destinationPath . '/user/profile_image';
       break;
+    case 'category_image':
+      $destinationPath = $destinationPath . '/category';
+      break;
 
 
     default:

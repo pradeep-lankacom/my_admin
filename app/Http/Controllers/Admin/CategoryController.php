@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCategory;
 use App\Http\Requests\StoreUser;
 use App\Repositories\Contracts\AdminInterface;
 use App\Repositories\Contracts\CategoryInterface;
@@ -49,7 +50,9 @@ class CategoryController extends Controller {
 
             $data['page_title']="test";
             $data['page_description']="test";
-            return view('admin.user.list')->with($data);
+            $data['categories']=$this->category->getCategoryList();
+
+            return view('admin.category.list')->with($data);
         } catch (\Exception $e) {
             \Log::error(array('user_id' => Auth::guard('admin')->user()->id, 'msg' => "Failed to list roles.", "error" => $e->getMessage()));
         }
@@ -61,11 +64,21 @@ class CategoryController extends Controller {
     public function getCategoryList()
     {
         try {
+            $categories=array();
+            $category=$this->category->getCategoryList();
+            foreach($category as $item){
+                $subcategories=array();
+                foreach($item['children'] as $child){
+                    $subcategories[]=['name'=>$child->title,"id"=>$child->id];
+                }
+                $categories[]=['name'=>$item->title,"id"=>$item->id,"children"=>$subcategories];
+                unset($subcategories);
+            }
 
-            return $this->admin_user->getUserList();
+            return $categories;
 
         } catch (\Exception $e) {
-            \Log::error(array('user_id' => Auth::guard('admin')->user()->id, 'msg' => "Failed to list users.", "error" => $e->getMessage()));
+            \Log::error(array('user_id' => Auth::guard('admin')->user()->id, 'msg' => "Failed to list Category.", "error" => $e->getMessage()));
         }
     }
 
@@ -73,8 +86,9 @@ class CategoryController extends Controller {
     public function create()
     {
         try {
-            $roles = $this->role->getRolesToUsers();
-            return view('admin.user.create', ['roles' => $roles]);
+            $mainCategory = $this->category->getMainCategory();
+          // print_r($mainCategory);
+            return view('admin.category.create', ['mainCategory' => $mainCategory]);
         } catch (\Exception $e) {
             \Log::error(array('user_id' => Auth::guard('admin')->user()->id, 'msg' => "Failed to redirect to the create user form.", "error" => $e->getMessage()));
         }
@@ -84,48 +98,35 @@ class CategoryController extends Controller {
     /**
      * Save user.
      */
-    public function store(StoreUser $request)
+    public function store(StoreCategory $request)
     {
         try {
+
             $validated = $request->validated();
 
             if (!empty($validated)) {
-                //Generating a password
-                $length = 10;
-                $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 
 
                 $requestData = [
-                    'name' => $validated['name'],
-                    'email' => $validated['email'],
-                    'role_id' => $validated['role_id'],
-                    'password' => bcrypt(substr(str_shuffle(str_repeat($pool, $length)), 0, $length)),
-                    'image' => !empty($validated['image']) ? getFileName('profile_image', $validated['image']) : null,
-                    'remember_token' => "",
-                    'status_id' => 0,
+                    'title' => $validated['title'],
+                    'description' => $request['description'],
+                    'parent_id' => $request['parent_id'],
+                    'image' => !empty($validated['image']) ? getFileName('category_image', $validated['image']) : null,
+
                 ];
 
-                $result = $this->admin_user->store($requestData);
+                $result = $this->category->store($requestData);
 
                 if ($result['success']) {
-//                    $token = app('auth.password.broker')->createToken($result['user']);
-//                    $user = $result['user'];
-//                    $request["token"] = $token;
-//                    $data = array(
-//                        'token' => $token,
-//                        'name' => $user->name
-//                    );
-//
-//                    Mail::to($user->email)->queue(new ConfirmationMail($data));
-                    return response()->json(['status' => true, 'message' => 'User has been created successfully.']);
+                    return response()->json(['status' => true, 'message' => 'Category has been created successfully.']);
 
                 } else {
                     return response()->json(['status' => false, 'message' => 'Oops.. An Error Occurred, Please Try Again.']);
                 }
             }
         } catch (\Exception $e) {
-            \Log::error(array('user_id' => Auth::guard('admin')->user()->id, 'msg' => "Failed to store user.", "error" => $e->getMessage()));
+            \Log::error(array('user_id' => Auth::guard('admin')->user()->id, 'msg' => "Failed to store Category.", "error" => $e->getMessage()));
         }
     }
 

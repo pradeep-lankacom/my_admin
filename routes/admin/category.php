@@ -9,7 +9,7 @@
 
 Route::group(['prefix' => 'admin', 'middleware' => ['role.permission:SuperAdmin']], function () {
     Route::get('/category', 'admin\CategoryController@index')->name('category.list');
-    Route::get('/category/get_category_list', 'admin\CategoryController@getCategoryList')->name('user.category_list');
+    Route::get('/category/get_category_list', 'admin\CategoryController@getCategoryList')->name('category.category_list');
     Route::get('/category/create', 'admin\CategoryController@create')->name('category.create');
     Route::post('/category/store', 'admin\CategoryController@store')->name('category.store');
 

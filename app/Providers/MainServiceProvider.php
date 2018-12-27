@@ -52,5 +52,10 @@ class MainServiceProvider extends ServiceProvider
             'App\Repositories\AdminRepository'
         );
 
+        $this->app->bind(
+            'App\Repositories\Contracts\CategoryInterface',
+            'App\Repositories\CategoryRepository'
+        );
+
     }
 }
